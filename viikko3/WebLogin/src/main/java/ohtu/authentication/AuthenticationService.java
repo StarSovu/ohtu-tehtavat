@@ -1,5 +1,7 @@
 package ohtu.authentication;
 
+import static java.lang.Character.isLetter;
+import static java.lang.Character.isLowerCase;
 import ohtu.data_access.UserDao;
 import ohtu.domain.User;
 import ohtu.util.CreationStatus;
@@ -29,9 +31,37 @@ public class AuthenticationService {
         if (userDao.findByName(username) != null) {
             status.addError("username is already taken");
         }
-
+        
         if (username.length()<3 ) {
             status.addError("username should have at least 3 characters");
+        }
+        
+        boolean usernameOnlyLowercase = true;
+        for (int i = 0; i < username.length(); i++) {
+            if (!isLowerCase(username.charAt(i))) {
+                usernameOnlyLowercase = false;
+            }
+        }
+        if (!usernameOnlyLowercase) {
+            status.addError("username should only consist of lowercase letters");
+        }
+        
+        if (password.length()<8) {
+            status.addError("password should have at least 8 characters");
+        }
+        
+        boolean passwordOnlyLetters = true;
+        for (int i = 0; i < password.length(); i++) {
+            if (!isLetter(password.charAt(i))) {
+                passwordOnlyLetters = false;
+            }
+        }
+        if (passwordOnlyLetters) {
+            status.addError("password should not only consist of letters");
+        }
+        
+        if (!(password.equals(passwordConfirmation))) {
+            status.addError("password and password confirmation do not match");
         }
 
         if (status.isOk()) {
