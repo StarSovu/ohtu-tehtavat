@@ -137,6 +137,16 @@ public class KauppaTest {
         // ... ja kolmantena pyydetty viite        
         verify(pankki).tilisiirto(anyString(), eq(3), anyString(), anyString(), anyInt());  
     }
+    
+    @Test
+    public void koristaPoistettuaTuotettaEiOsteta() {
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.poistaKorista(1);
+        k.tilimaksu("pekka", "12345");
+        
+        verify(pankki).tilisiirto(anyString(), anyInt(), anyString(), anyString(), eq(0));
+    }
 
 }
 
