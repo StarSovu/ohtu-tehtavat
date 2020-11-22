@@ -96,6 +96,47 @@ public class KauppaTest {
         // sitten suoritetaan varmistus, että pankin metodia tilisiirto on kutsuttu
         verify(pankki).tilisiirto(eq("pekka"), anyInt(), eq("12345"), anyString(), eq(5));
     }
+    
+    @Test
+    public void metodiAloitaAsiointitNollaaEdellisenOstoksenTiedot() {
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        
+        k.aloitaAsiointi();
+        k.tilimaksu("pekka", "12345");
+        
+        // varmistus, että pankin metodia on kutsuttu summalla 0
+        verify(pankki).tilisiirto(anyString(), anyInt(), anyString(), anyString(), eq(0));
+    }
+    
+    @Test
+    public void metodiTilisiirtoPyytaaUudenViitenumeronJokaKerta() {
+        when(viite.uusi())
+            .thenReturn(1)
+            .thenReturn(2)
+            .thenReturn(3);
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.tilimaksu("pekka", "12345");
+
+        // varmistetaan, että nyt käytössä ensimmäisenä pyydetty viite
+        verify(pankki).tilisiirto(anyString(), eq(1), anyString(), anyString(), anyInt());
+        
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.tilimaksu("pekka", "12345");
+
+        // ... toisena pyydetty viite
+        verify(pankki).tilisiirto(anyString(), eq(2), anyString(), anyString(), anyInt());
+        
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.tilimaksu("pekka", "12345");
+
+        // ... ja kolmantena pyydetty viite        
+        verify(pankki).tilisiirto(anyString(), eq(3), anyString(), anyString(), anyInt());  
+    }
 
 }
 
