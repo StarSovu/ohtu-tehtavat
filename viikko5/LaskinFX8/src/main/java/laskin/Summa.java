@@ -10,6 +10,8 @@ public class Summa extends Komento {
 
     @Override
     public void suorita() {
+        this.asetaEdellinenTulos();
+        
         int summattava = Integer.parseInt(this.syotekentta.getText());
         this.sovellus.plus(summattava);
         int summa = this.sovellus.tulos();
@@ -17,7 +19,7 @@ public class Summa extends Komento {
         this.syotekentta.setText("");
         this.tuloskentta.setText("" + summa);
         
-        this.undo.disableProperty().set(false);
-        this.nollaa.disableProperty().set(summa == 0);
-    }  
+        this.asetaNapit();
+    }
+    
 }

@@ -10,11 +10,15 @@ public class Nollaa extends Komento {
 
     @Override
     public void suorita() {
+        this.asetaEdellinenTulos();
+        
         this.sovellus.nollaa();
         this.syotekentta.setText("");
         this.tuloskentta.setText("0");
         
         this.undo.disableProperty().set(false);
         this.nollaa.disableProperty().set(true);
+        
+        this.asetaNapit();
     }  
 }

@@ -10,6 +10,8 @@ public class Erotus extends Komento {
 
     @Override
     public void suorita() {
+        this.asetaEdellinenTulos();
+        
         int vahennettava = Integer.parseInt(this.syotekentta.getText());
         this.sovellus.miinus(vahennettava);
         int erotus = this.sovellus.tulos();
@@ -17,7 +19,6 @@ public class Erotus extends Komento {
         this.syotekentta.setText("");
         this.tuloskentta.setText("" + erotus);
         
-        this.undo.disableProperty().set(false);
-        this.nollaa.disableProperty().set(erotus == 0);
+        this.asetaNapit();
     }  
 }
