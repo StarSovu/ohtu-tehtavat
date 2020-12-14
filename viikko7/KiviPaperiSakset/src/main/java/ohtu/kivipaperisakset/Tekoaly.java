@@ -22,6 +22,5 @@ public class Tekoaly {
     }
 
     void asetaSiirto(String ekanSiirto) {
-        // ei tehdä mitään 
     }
 }

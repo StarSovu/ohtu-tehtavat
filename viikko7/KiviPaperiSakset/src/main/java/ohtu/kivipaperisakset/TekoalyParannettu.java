@@ -56,10 +56,6 @@ public class TekoalyParannettu {
     }
     
     
-    // Tehdään siirron valinta esimerkiksi seuraavasti;
-    // - jos kiviä eniten, annetaan aina paperi
-    // - jos papereita eniten, annetaan aina sakset
-    // muulloin annetaan aina kivi
     if(k > p && k > s) {
       return "p";
     }
@@ -69,8 +65,5 @@ public class TekoalyParannettu {
     else {
       return "k";
     }
-    
-    // Tehokkaampiakin tapoja löytyy, mutta niistä lisää 
-    // Johdatus Tekoälyyn kurssilla!
   }
 }
